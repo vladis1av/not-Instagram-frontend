@@ -1,0 +1,6 @@
+export const postTypes = {
+  TOGGLE_LIKE: 'TOGGLE_LIKE',
+  SET_LOADED: 'SET_LOADED',
+  SET_POST: 'SET_POST',
+  ADD_COMMENT: 'ADD_COMMENT',
+};

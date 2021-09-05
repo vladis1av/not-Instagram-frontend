@@ -1,0 +1,21 @@
+.chat {
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-bottom-right-radius: 8px;
+
+  .chat__messages {
+    display: flex;
+    flex: 1;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+    min-height: 0;
+    min-width: 0;
+    padding: 10px 25px 0px 27px;
+  }
+
+  @media (min-width: 0px) and (max-width: 500px) {
+    flex: 1;
+  }
+}

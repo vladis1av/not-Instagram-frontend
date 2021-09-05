@@ -1,0 +1,69 @@
+.post-card__list {
+  max-width: 291px;
+  margin-right: 28px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  .post-card__item {
+    display: block;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    padding-bottom: 100%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    object-fit: cover;
+    user-select: none;
+  }
+}
+.post-card__item__info {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  ul {
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      position: relative;
+      color: white;
+
+      &:last-child {
+        margin-right: 0;
+      }
+      span {
+        margin-right: 7px;
+        .comment-active-svg {
+          transform: rotate(-90deg);
+        }
+      }
+
+      svg {
+        fill: white;
+      }
+    }
+  }
+}
+
+.post-card__list:hover {
+  .post-card__item__info {
+    display: block;
+  }
+}

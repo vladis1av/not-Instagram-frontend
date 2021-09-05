@@ -1,0 +1,7 @@
+export const dialogsTypes = {
+  SET_DIALOGS: 'dialogs/SET_DIALOGS',
+  SET_CURRENT_DIALOG: 'dialogs/SET_CURRENT_DIALOG',
+  SET_READED_LAST_MESSAGE: 'dialogs/SET_READED_LAST_MESSAGE',
+  SET_LOADED: 'dialogs/SET_LOADED',
+  SET_UNREAD_DIALOGS: 'dialogs/SET_UNREAD_DIALOGS',
+};

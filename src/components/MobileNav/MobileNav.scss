@@ -1,0 +1,26 @@
+.bottom-nav {
+  border-top: 1px solid #dbdbdb;
+  position: sticky;
+  bottom: 0px;
+  width: 100%;
+  height: 44px;
+  background-color: white;
+  display: none;
+  flex-direction: row;
+  margin-top: auto;
+
+  @media (max-width: 500px) {
+    display: flex;
+  }
+
+  &__menu-item {
+    flex: 0.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

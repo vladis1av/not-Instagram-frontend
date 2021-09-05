@@ -1,0 +1,46 @@
+.emoji-picker-wrapper {
+  .emoji-picker {
+    position: absolute;
+    bottom: 60px;
+  }
+}
+
+.emoji-picker .emoji-mart {
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
+  border: none;
+  @media (min-width: 0px) and (max-width: 600px) {
+    max-width: 250px;
+  }
+}
+
+.emoji-picker .emoji-mart-scroll {
+  max-height: 325px;
+  height: 100%;
+  @media (min-width: 0px) and (max-width: 600px) {
+    max-height: 250px;
+  }
+}
+
+.emoji-picker .emoji-mart-bar {
+  border: none;
+}
+
+.emoji-picker .emoji-mart-anchors {
+  display: none;
+}
+
+.emoji-picker .emoji-mart-search {
+  display: none;
+}
+
+.emoji-picker .emoji-mart-category-label {
+  span {
+    color: #8e8e8e;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  position: unset;
+}

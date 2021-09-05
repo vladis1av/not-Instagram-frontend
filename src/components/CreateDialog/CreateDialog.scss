@@ -1,0 +1,99 @@
+.create-dialog {
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+  height: 65%;
+  background: #fff;
+  border-radius: 12px;
+
+  &__button {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  &__top {
+    &__header {
+      height: 43px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(219, 219, 219, 1);
+      &__input {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+        margin-top: 8px;
+        padding: 0 15px;
+
+        &__selected-user {
+          display: flex;
+          height: 35px;
+          margin-right: 4px;
+          background-color: #e0f1ff;
+          border-radius: 4px;
+          padding-left: 12px;
+          padding-right: 12px;
+          justify-content: center;
+          align-items: center;
+
+          button {
+            color: #0095f6;
+
+            svg {
+              cursor: pointer;
+              fill: rgb(0, 149, 246);
+            }
+          }
+          &__remove {
+            margin-left: 7px;
+          }
+        }
+
+        h4 {
+          font-weight: 600;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          padding-right: 10px;
+        }
+
+        input {
+          background-color: #efefef;
+          border-color: #dbdbdb;
+          margin: 0px;
+          padding: 4px 12px;
+          border: 0px;
+          border-radius: 6px;
+          flex-grow: 1;
+          font-size: 14px;
+          line-height: 30px;
+          outline: 0px !important;
+        }
+      }
+      h1 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        text-align: center;
+      }
+    }
+  }
+
+  &__bottom {
+    border-top: 1px solid rgba(219, 219, 219, 1);
+
+    &__item {
+      display: flex;
+      padding: 15px;
+
+      &__user {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 10px;
+      }
+      &--empty {
+        padding: 15px;
+      }
+    }
+  }
+}

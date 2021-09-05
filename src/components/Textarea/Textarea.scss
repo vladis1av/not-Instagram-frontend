@@ -1,0 +1,47 @@
+.textarea {
+  background-color: white;
+
+  &--chat {
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    padding: 15px 20px 15px;
+    border-radius: 4px;
+
+    .textarea__content {
+      border: 1px solid #dbdbdb;
+      border-radius: 30px;
+      padding: 0 15px;
+    }
+  }
+
+  &--post {
+    width: 100%;
+    position: relative;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-height: 80px;
+    min-height: 44px;
+    overflow: hidden;
+
+    .focus-visible {
+      textarea:focus {
+        outline: 0;
+      }
+    }
+
+    &__add-atachments {
+      &__icon {
+        cursor: pointer;
+
+        &:last-child {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

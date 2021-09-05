@@ -1,0 +1,61 @@
+.dialogs__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 20px;
+  position: relative;
+  &:hover {
+    background-color: #fafafa;
+  }
+
+  &__avatar {
+    margin-right: 12px;
+    position: relative;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    max-width: 175px;
+    width: 100%;
+
+    span {
+      font-size: 14px;
+      padding: 1px;
+    }
+
+    &__username {
+      color: #262626;
+      margin-bottom: 1px;
+    }
+    &__last-message {
+      color: #8e8e8e;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+
+      &__time {
+        padding-left: 7px;
+        padding-right: 16px;
+        font-size: 11px;
+      }
+      span {
+        overflow: hidden;
+      }
+    }
+    @media (min-width: 0px) and (max-width: 500px) {
+      max-width: 270px;
+    }
+  }
+
+  &--active {
+    background-color: #efefef;
+    pointer-events: none;
+
+    &:hover {
+      background-color: #efefef;
+    }
+  }
+}

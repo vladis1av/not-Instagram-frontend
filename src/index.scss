@@ -1,0 +1,220 @@
+@import url('/node_modules/reset-css/reset.css');
+@import 'macro-css';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(250, 250, 250, 1);
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #262626;
+}
+
+.default-link {
+  &:active {
+    opacity: 0.3;
+  }
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  background-color: #fafafa;
+  .main {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+.span-bold {
+  color: #262626;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.mini-posts-grid {
+  display: grid;
+  grid-column: center-start / center-end;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2.5rem;
+  grid-row-gap: 2.5rem;
+
+  @media only screen and (max-width: 56.26em) {
+    grid-column: full-start / full-end;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+  }
+}
+
+.form-block {
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(219, 219, 219, 1);
+  margin-bottom: 10px;
+  width: 350px;
+  max-width: 616px;
+  min-width: 320px;
+  border-radius: 1px;
+  margin: 0px 0px 10px;
+  padding: 10px 0px;
+}
+
+.form-login__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin: 22px auto 30px;
+  }
+  span {
+    font-weight: bold;
+  }
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 270px;
+  margin-bottom: 12px;
+}
+
+.form__bottom {
+  display: block;
+  p {
+    color: rgba(38, 38, 38, 1);
+    font-size: 14px;
+    margin: 15px;
+    text-align: center;
+    span {
+      margin-left: 5px;
+      color: rgba(0, 149, 246, 1);
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+}
+
+.form__group {
+  position: relative;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.form__input {
+  font-size: 14px;
+  padding: 10px 0px 10px 8px;
+  width: 100%;
+  background: rgba(250, 250, 250, 1);
+  border: 1px solid rgba(219, 219, 219, 1);
+  border-radius: 3px;
+  color: rgb(41, 41, 41);
+  transition: 0.3s;
+  outline: none;
+}
+
+.form__input:focus {
+  padding: 13px 0px 7px 8px;
+  border-color: rgba(168, 168, 168, 1);
+}
+
+.form__input:not(:placeholder-shown) {
+  padding: 13px 0px 7px 8px;
+}
+
+.form__input__validation {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+}
+
+.form__label {
+  cursor: text;
+  pointer-events: none;
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  transition: 0.3s;
+  color: #8e8e8e;
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown) ~ .form__label {
+  transform: scale(0.93) translateY(-10px);
+  font-size: 12px;
+  color: #8e8e8e;
+}
+
+.form__input--with-valdation-icon {
+  padding-right: 25px !important;
+}
+
+.user-is-online {
+  height: 20px;
+  width: 20px;
+  margin: 3px 0px 0px 3px;
+  border: 3.5px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  background: rgb(120, 222, 69);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.last-message-unread {
+  height: 8px;
+  width: 8px;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: rgba(0, 149, 246, 1);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  right: 6%;
+}
+
+.dialog-unread {
+  display: flex;
+  position: absolute;
+  background-color: rgba(237, 73, 86, 1);
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  height: 18px;
+  justify-content: center;
+  width: 18px;
+  top: -5px;
+  left: 10px;
+  &__total-count {
+    padding: 0px 3px;
+  }
+}

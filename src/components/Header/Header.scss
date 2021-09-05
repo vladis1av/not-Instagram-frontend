@@ -1,0 +1,140 @@
+.header {
+  position: sticky;
+  z-index: 10;
+  top: 0px;
+  background-color: white;
+  width: 100%;
+  padding: 12px 0px;
+  border-bottom: 1px solid #dbdbdb;
+
+  &__navbar {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    max-width: 975px;
+    margin: 0px auto;
+    padding: 0 10px;
+
+    @media (min-width: 0px) and (max-width: 500px) {
+      justify-content: space-between;
+    }
+
+    &__logo {
+      flex: 0.4;
+    }
+
+    &__search-input {
+      flex: 0.2;
+      position: relative;
+      background-color: #fafafa;
+      height: 28px;
+
+      label {
+        cursor: text;
+        pointer-events: none;
+        position: absolute;
+        top: 4px;
+        padding: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.3s;
+        font-size: 14px;
+        color: #c3c3c3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+      }
+      &__label--hide {
+        label {
+          display: none;
+        }
+      }
+      input {
+        border-radius: 3px;
+        height: 100%;
+        width: 100%;
+        padding: 3px;
+        font-size: 14px;
+        border: 1px solid #dbdbdb;
+        outline: none;
+        background-color: transparent;
+        &:focus + label {
+          left: 5px;
+          transform: translateX(0);
+        }
+      }
+      @media (min-width: 0px) and (max-width: 500px) {
+        display: none;
+      }
+    }
+
+    .nav-menu {
+      flex: 0.4;
+      display: flex;
+      justify-content: flex-end;
+      &__item {
+        display: flex;
+        align-items: center;
+        margin-left: 22px;
+        position: relative;
+        svg {
+          display: flex;
+        }
+
+        &:not(:nth-child(2)) {
+          @media (max-width: 500px) {
+            display: none;
+          }
+        }
+      }
+
+      &__heart {
+        position: relative;
+        @media (max-width: 500px) {
+          display: none;
+        }
+      }
+
+      &__close-panel {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99;
+        background-color: transparent;
+
+        &--active {
+          display: block;
+        }
+      }
+
+      &__profile-photo {
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 22px;
+
+        @media (max-width: 500px) {
+          display: none;
+        }
+
+        img {
+          padding: 2px;
+          border: 1px transparent;
+        }
+
+        &--active {
+          img {
+            border: 1px #262626 solid;
+            padding: 2px;
+          }
+        }
+      }
+    }
+  }
+}

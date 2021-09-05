@@ -1,0 +1,82 @@
+.direct {
+  max-width: 960px;
+  max-height: 100%;
+  margin: 20px auto 20px;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #dbdbdb;
+
+  @media (min-width: 0px) and (max-width: 640px) {
+    margin: 0;
+    border: none;
+  }
+
+  @media (min-width: 0px) and (max-width: 500px) {
+    border: none;
+  }
+  .chat__message-empty__wrapper {
+    flex: 0.7 1;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+      position: relative;
+      border-radius: 50%;
+      border: 2px solid black;
+      width: 95px;
+      height: 95px;
+
+      svg {
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        stroke: #fff;
+      }
+    }
+
+    h2 {
+      margin-top: 13px;
+      color: rgba(38, 38, 38, 1);
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 26px;
+    }
+
+    span {
+      margin-top: 10px;
+      font-weight: 400;
+      color: rgba(142, 142, 142, 1);
+      text-align: center;
+    }
+
+    button {
+      margin-top: 23px;
+      width: 170px;
+      font-size: 14px;
+      padding: 5px 5px;
+    }
+  }
+
+  @media (min-width: 0px) and (max-width: 500px) {
+    margin: 0px auto;
+  }
+
+  .dialog-sidebar {
+    @media (min-width: 0px) and (max-width: 500px) {
+      flex: 1;
+    }
+  }
+
+  .chat__message-empty__wrapper {
+    @media (min-width: 0px) and (max-width: 500px) {
+      display: none;
+    }
+  }
+}

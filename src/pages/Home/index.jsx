@@ -1,0 +1,108 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { postsApi, userApi } from '../../services/api/';
+import {
+  PostsLoader,
+  SuggestionsLoader,
+  Post,
+  ItemsLoader,
+  Suggestions,
+} from '../../components';
+import './Home.scss';
+import { useChangeDocumentTitle } from '../../hooks';
+import { selectCurrentUser } from '../../redux/reducers/user/userSelectors';
+import SuggestionUsersItem from '../../components/Suggestions/SuggestionUsersItem';
+
+const Home = () => {
+  const currentUser = useSelector((state) => selectCurrentUser(state));
+  const [posts, setPosts] = useState([]);
+  const [fetching, setFetching] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
+  const [page, setPage] = useState(0);
+  const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const [suggestedUsersLoading, setSuggestedUsersLoading] = useState([true]);
+
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+        100 &&
+      posts.length <= totalCount
+    ) {
+      setFetching(true);
+    }
+  };
+
+  useChangeDocumentTitle('not-Instagram');
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+    return () => {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (fetching) {
+      postsApi
+        .fetchFeed(page)
+        .then((res) => {
+          setPosts([...posts, ...res.data]);
+          setPage((prevState) => prevState + posts.length);
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
+
+  useEffect(() => {
+    userApi.getSuggestedUsers().then((res) => {
+      setSuggestedUsersLoading(false);
+      setSuggestedUsers(res);
+    });
+  }, []);
+
+  return (
+    <section className="feed">
+      <div className="posts">
+        {!posts.length && !suggestedUsers.length && (
+          <PostsLoader className="post" />
+        )}
+        {suggestedUsers &&
+          !posts.length &&
+          suggestedUsers.map((user) => (
+            <SuggestionUsersItem
+              key={user._id}
+              srcImage={user.profileAvatar}
+              username={user.username}
+              fullname={user.fullname}
+              userId={user._id}
+            />
+          ))}
+        {posts &&
+          posts.map((item) => (
+            <Post
+              key={item._id}
+              item={item}
+              currentUser={currentUser.id}
+              postId={item._id}
+            />
+          ))}
+        {fetching && <ItemsLoader size="60px" />}
+      </div>
+      {suggestedUsersLoading && <SuggestionsLoader />}
+      {posts.length && !suggestedUsersLoading ? (
+        <div className="aside">
+          <Suggestions
+            userAvatar={currentUser.profileAvatar}
+            username={currentUser.username}
+            fullname={currentUser.fullname}
+            users={suggestedUsers}
+          />
+        </div>
+      ) : null}
+    </section>
+  );
+};
+
+export default Home;

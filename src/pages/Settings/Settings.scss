@@ -1,0 +1,148 @@
+.edit {
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin: 32px auto 0px;
+  max-width: 955px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  @media (max-width: 500px) {
+    margin: 0;
+    border: none;
+  }
+
+  &__content {
+    height: 100%;
+    display: flex;
+
+    &__left {
+      flex: 0 0 236px;
+      height: 100%;
+
+      @media (max-width: 740px) {
+        display: none;
+      }
+
+      &__item__link {
+        display: flex;
+        align-items: center;
+        height: 52px;
+        border-left: 2px solid rgb(38, 38, 38);
+        font-weight: 600;
+        font-size: 16px;
+        padding: 16px 16px 16px 30px;
+      }
+    }
+
+    &__right {
+      border-left: 1px solid rgba(219, 219, 219, 1);
+      padding: 40px 40px;
+      width: 100%;
+      @media (max-width: 740px) {
+        padding: 25px 25px;
+      }
+    }
+  }
+}
+
+.edit__content__right__user__info {
+  h1 {
+    font-size: 20px;
+    line-height: 22px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.edit__content__right__form__group {
+  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  column-gap: 2rem;
+
+  & > :first-child {
+    justify-self: right;
+    text-align: right;
+  }
+
+  label {
+    box-sizing: border-box;
+    color: rgba(38, 38, 38, 1);
+    flex: 0 0 194px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    margin-top: 6px;
+  }
+
+  input {
+    background-color: #efefef;
+    border-color: #dbdbdb;
+    background: 0px 0px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #262626;
+    flex: 0 1 355px;
+    font-size: 16px;
+    height: 32px;
+    padding: 0px 10px;
+    width: 100%;
+    max-width: 355px;
+    outline: 0px !important;
+  }
+
+  p {
+    color: rgba(142, 142, 142, 1);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    display: block;
+    width: 100%;
+    max-width: 355px;
+    margin-top: 15px;
+    margin-left: 5px;
+  }
+  textarea {
+    background: 0px 0px;
+    border: 1px solid rgba(219, 219, 219, 1);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgba(38, 38, 38, 1);
+    flex: 0 1 355px;
+    font-size: 16px;
+    height: 70px;
+    padding: 6px 10px;
+    resize: vertical;
+    width: 100%;
+    max-width: 355px;
+  }
+
+  @media (max-width: 740px) {
+    display: block;
+
+    &:first-child {
+      display: flex;
+      align-items: center;
+    }
+    textarea {
+      margin-top: 5px;
+      max-width: 100%;
+    }
+
+    input {
+      max-width: 100%;
+      margin-top: 5px;
+    }
+  }
+}
+
+.form-edit {
+  button {
+    width: 100px;
+  }
+}
