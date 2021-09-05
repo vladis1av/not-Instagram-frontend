@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = `http://localhost:8888`;
+export const API_URL = `https://not-instagram-backend.herokuapp.com`;
 
 const $api = axios.create({
   withCredentials: true,
