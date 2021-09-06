@@ -92,26 +92,33 @@ const PostBlock = ({ currentUser, postId, item }) => {
             <Icon name="saved" size="24" />
           </div>
         </div>
-        <div className="post__content__recent-liked">
-          <span>{state.likesCount} отметок "Нравиться"</span>
-        </div>
-        <div className="post__content__description">
-          <span>{state.data.author.username}</span>&nbsp;
-          <span>{state.data.text}</span>
-        </div>
-        <div className="post__content__comments">
-          <span className="post__content__comments__more-count">
-            Посмотреть все комментарии ({state.data.commentCount})
-          </span>
-          {state.data.comments.length
-            ? state.data.comments.map((item) => (
-                <div className="post__content__comments__item">
-                  <span>{item.author.username}</span>&nbsp;
-                  <span>{item.message}</span>
-                </div>
-              ))
-            : null}
-        </div>
+        {state.likesCount > 0 && (
+          <div className="post__content__recent-liked">
+            <span>{state.likesCount} отметок "Нравиться"</span>
+          </div>
+        )}
+        {state.data.text && (
+          <div className="post__content__description">
+            <span>{state.data.author.username}</span>&nbsp;
+            <span>{state.data.text}</span>
+          </div>
+        )}
+        {state.data.commentCount > 0 && (
+          <div className="post__content__comments">
+            <span className="post__content__comments__more-count">
+              Посмотреть все комментарии ({state.data.commentCount})
+            </span>
+            {state.data.comments.length
+              ? state.data.comments.map((item) => (
+                  <div className="post__content__comments__item">
+                    <span>{item.author.username}</span>&nbsp;
+                    <span>{item.message}</span>
+                  </div>
+                ))
+              : null}
+          </div>
+        )}
+
         <div className="post__content__date">
           <span>{formatDate(new Date(state.data.createdAt))}</span>
         </div>
