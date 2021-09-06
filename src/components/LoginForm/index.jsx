@@ -5,6 +5,7 @@ import * as yup from 'yup';
 
 import { login } from '../../redux/reducers/user/userAction';
 import { Button } from '../';
+import { useChangeDocumentTitle } from '../../hooks';
 import logo from '../../assets/images/instagram-logo.svg';
 
 const LoginForm = () => {
@@ -27,6 +28,8 @@ const LoginForm = () => {
     validationSchema: validationSchema,
     onSubmit: handleClickSubmit,
   });
+
+  useChangeDocumentTitle('Войти • not-Instagram');
 
   return (
     <>

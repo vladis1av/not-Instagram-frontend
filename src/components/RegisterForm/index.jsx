@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { authApi } from '../../services/api';
 import { Button, Icon } from '../';
 import logo from '../../assets/images/instagram-logo.svg';
+import { useChangeDocumentTitle } from '../../hooks';
 
 const RegisterForm = () => {
   const history = useHistory();
@@ -43,6 +44,8 @@ const RegisterForm = () => {
     validationSchema: validationSchema,
     onSubmit: handleClickSubmit,
   });
+
+  useChangeDocumentTitle('Регистрация • not-Instagram');
 
   return (
     <>
