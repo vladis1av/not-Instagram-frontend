@@ -45,6 +45,13 @@
     }
   }
 
+  &__image {
+    overflow: hidden;
+    img {
+      max-height: 767px;
+    }
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
