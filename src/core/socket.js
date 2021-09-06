@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
+import { API_URL } from './axios';
 
-const socket = io(window.location.origin.replace('3000', '8888'));
+const socket = io(API_URL);
 
 export default socket;
