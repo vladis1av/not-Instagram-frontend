@@ -2,17 +2,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { postsApi, userApi } from '../../services/api/';
-import {
-  PostsLoader,
-  SuggestionsLoader,
-  Post,
-  ItemsLoader,
-  Suggestions,
-} from '../../components';
-import './Home.scss';
+import { PostsLoader, Post, ItemsLoader, Suggestions } from '../../components';
 import { useChangeDocumentTitle } from '../../hooks';
 import { selectCurrentUser } from '../../redux/reducers/user/userSelectors';
-import SuggestionUsersItem from '../../components/Suggestions/SuggestionUsersItem';
+import SuggestionUsersItemWrapper from '../../components/Suggestions/SuggestionUsersItemWrapper';
+import './Home.scss';
 
 const Home = () => {
   const currentUser = useSelector((state) => selectCurrentUser(state));
@@ -65,14 +59,12 @@ const Home = () => {
   return (
     <section className="feed">
       {!posts.length && !fetching ? (
-        <SuggestionUsersItem users={suggestedUsers} />
+        <SuggestionUsersItemWrapper users={suggestedUsers} />
       ) : (
         <>
           <div className="posts">
-            {!posts.length && !suggestedUsers.length && (
-              <PostsLoader className="post" />
-            )}
-            {posts &&
+            {!posts.length && <PostsLoader className="post" />}
+            {posts.length &&
               posts.map((item) => (
                 <Post
                   key={item._id}
@@ -88,6 +80,7 @@ const Home = () => {
               userAvatar={currentUser.profileAvatar}
               username={currentUser.username}
               fullname={currentUser.fullname}
+              currentUserId={currentUser._id}
               users={suggestedUsers}
             />
           </div>

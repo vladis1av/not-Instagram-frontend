@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 
 import { Image } from '../';
-import SuggestionUsersItem from './SuggestionUsersItem/';
+import SuggestionUsersItemWrapper from './SuggestionUsersItemWrapper';
 import './Suggestions.scss';
-import SuggestionsLoader from '../SuggestionsLoader';
 
-const Suggestions = ({ userAvatar, username, fullname, users }) => {
+const Suggestions = ({
+  userAvatar,
+  username,
+  fullname,
+  users,
+  currentUserId,
+}) => {
   return (
     <div className="suggestions">
       <div className="user-switch">
@@ -27,7 +32,7 @@ const Suggestions = ({ userAvatar, username, fullname, users }) => {
           <span>{fullname}</span>
         </div>
       </div>
-      <SuggestionUsersItem users={users} />
+      <SuggestionUsersItemWrapper users={users} currentUserId={currentUserId} />
     </div>
   );
 };

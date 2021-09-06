@@ -11,7 +11,7 @@ import { postsApi } from '../../services/api';
 import { formatDate } from '../../utils/';
 import './Post.scss';
 
-const PostBlock = ({ currentUser, postId, item }) => {
+const Post = ({ currentUser, postId, item }) => {
   const [state, dispatch] = useReducer(postReducer, initialState);
 
   const toggleLike = async () => {
@@ -32,6 +32,7 @@ const PostBlock = ({ currentUser, postId, item }) => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     dispatch(setPost({ item, currentUser }));
   }, []);
@@ -110,7 +111,7 @@ const PostBlock = ({ currentUser, postId, item }) => {
             </span>
             {state.data.comments.length
               ? state.data.comments.map((item) => (
-                  <div className="post__content__comments__item">
+                  <div key={item._id} className="post__content__comments__item">
                     <span>{item.author.username}</span>&nbsp;
                     <span>{item.message}</span>
                   </div>
@@ -130,4 +131,4 @@ const PostBlock = ({ currentUser, postId, item }) => {
   );
 };
 
-export default PostBlock;
+export default Post;
