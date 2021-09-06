@@ -2,10 +2,9 @@ import classNames from 'classnames';
 import { useState, useRef, useEffect } from 'react';
 
 import { Icon, Button, EmojiPicker } from '../';
-import { messageApi } from '../../services/api';
 import './Textarea.scss';
 
-const Textarea = ({ to, chat, post, onSend, api }) => {
+const Textarea = ({ chat, post, onSend, api }) => {
   const textareaStyles = classNames(
     'textarea',
     { 'textarea--chat': chat },
@@ -18,11 +17,9 @@ const Textarea = ({ to, chat, post, onSend, api }) => {
 
   const HandleSendMessage = async (e) => {
     if (message.trim() && e.keyCode === 13) {
-      // const data = await messageApi.send(message, to);
-      await api(message).then(() => {
-        setMessage('');
-        textAreaRef.current.style.height = 34 + 'px';
-      });
+      await api(message);
+      textAreaRef.current.style.height = 34 + 'px';
+      setMessage('');
     }
   };
 

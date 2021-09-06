@@ -32,6 +32,15 @@ const Chat = ({ currentUser, currentDialog }) => {
     }
   };
 
+  const onAddMessage = async (message) => {
+    try {
+      const data = await messageApi.send(message, currentDialog);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useChangeDocumentTitle('not-Instagram • Direct');
 
   useEffect(() => {
@@ -69,7 +78,7 @@ const Chat = ({ currentUser, currentDialog }) => {
           })}
         </div>
       </div>
-      <Textarea to={currentDialog} chat />
+      <Textarea chat api={onAddMessage} />
     </div>
   );
 };
