@@ -64,43 +64,35 @@ const Home = () => {
 
   return (
     <section className="feed">
-      <div className="posts">
-        {!posts.length && !suggestedUsers.length && (
-          <PostsLoader className="post" />
-        )}
-        {suggestedUsers &&
-          !posts.length &&
-          suggestedUsers.map((user) => (
-            <SuggestionUsersItem
-              key={user._id}
-              srcImage={user.profileAvatar}
-              username={user.username}
-              fullname={user.fullname}
-              userId={user._id}
+      {!posts.length && !fetching ? (
+        <SuggestionUsersItem users={suggestedUsers} />
+      ) : (
+        <>
+          <div className="posts">
+            {!posts.length && !suggestedUsers.length && (
+              <PostsLoader className="post" />
+            )}
+            {posts &&
+              posts.map((item) => (
+                <Post
+                  key={item._id}
+                  item={item}
+                  currentUser={currentUser.id}
+                  postId={item._id}
+                />
+              ))}
+            {fetching && <ItemsLoader size="60px" />}
+          </div>
+          <div className="aside">
+            <Suggestions
+              userAvatar={currentUser.profileAvatar}
+              username={currentUser.username}
+              fullname={currentUser.fullname}
+              users={suggestedUsers}
             />
-          ))}
-        {posts &&
-          posts.map((item) => (
-            <Post
-              key={item._id}
-              item={item}
-              currentUser={currentUser.id}
-              postId={item._id}
-            />
-          ))}
-        {fetching && <ItemsLoader size="60px" />}
-      </div>
-      {suggestedUsersLoading && <SuggestionsLoader />}
-      {posts.length && !suggestedUsersLoading ? (
-        <div className="aside">
-          <Suggestions
-            userAvatar={currentUser.profileAvatar}
-            username={currentUser.username}
-            fullname={currentUser.fullname}
-            users={suggestedUsers}
-          />
-        </div>
-      ) : null}
+          </div>
+        </>
+      )}
     </section>
   );
 };

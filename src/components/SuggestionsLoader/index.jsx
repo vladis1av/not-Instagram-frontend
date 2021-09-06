@@ -3,6 +3,7 @@ const SuggestionsLoader = () => {
     <svg
       role="img"
       style={{
+        marginTop: '10px',
         width: '293px',
         height: '335px',
       }}
@@ -19,15 +20,18 @@ const SuggestionsLoader = () => {
         style={{ fill: 'url("#fill")' }}></rect>
       <defs>
         <clipPath id="clip-path">
-          <rect x="103" y="12" rx="3" ry="3" width="123" height="16" />
-          <rect x="102" y="152" rx="3" ry="3" width="171" height="16" />
-          <circle cx="44" cy="42" r="38" />
-          <circle cx="44" cy="147" r="38" />
-          <circle cx="44" cy="251" r="38" />
-          <rect x="105" y="117" rx="3" ry="3" width="123" height="16" />
-          <rect x="104" y="222" rx="3" ry="3" width="123" height="16" />
-          <rect x="105" y="48" rx="3" ry="3" width="171" height="16" />
-          <rect x="104" y="257" rx="3" ry="3" width="171" height="16" />
+          <circle cx="30" cy="42" r="27"></circle>
+          <rect x="70 " y="25" rx="3" ry="3" width="123" height="16"></rect>
+          <rect x="70" y="50" rx="3" ry="3" width="171" height="16"></rect>
+          <circle cx="30" cy="115" r="27"></circle>
+          <rect x="70" y="95" rx="3" ry="3" width="123" height="16"></rect>
+          <rect x="70" y="120" rx="3" ry="3" width="171" height="16"></rect>
+          <circle cx="30" cy="190" r="27"></circle>
+          <rect x="70" y="170" rx="3" ry="3" width="123" height="16"></rect>
+          <rect x="70" y="195" rx="3" ry="3" width="171" height="16"></rect>
+          <circle cx="30" cy="265" r="27"></circle>
+          <rect x="70" y="245" rx="3" ry="3" width="123" height="16"></rect>
+          <rect x="70" y="270" rx="3" ry="3" width="171" height="16"></rect>
         </clipPath>
         <linearGradient id="fill">
           <stop offset="0.599964" stopColor="#f3f3f3" stopOpacity="1">
