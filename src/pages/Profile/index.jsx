@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
@@ -20,10 +20,18 @@ const Profile = () => {
   const { id } = useParams();
   const currentUser = useSelector((state) => selectCurrentUser(state));
   const [state, dispatch] = useReducer(profileReducer, initialState);
+  const [isLoadingFollow, setIsLoadingFollow] = useState(false);
 
   const toggleFollow = async () => {
-    const res = await userApi.toggleFollow(state.user._id, currentUser._id);
-    dispatch(setFollow(res.operation));
+    try {
+      setIsLoadingFollow(true);
+      const res = await userApi.toggleFollow(state.user._id, currentUser._id);
+      dispatch(setFollow(res.operation));
+      setIsLoadingFollow(false);
+    } catch (error) {
+      setIsLoadingFollow(false);
+      console.log(error);
+    }
   };
 
   useChangeDocumentTitle(
@@ -80,6 +88,8 @@ const Profile = () => {
                 </Button>
               ) : (
                 <Button
+                  isLoading={isLoadingFollow}
+                  disabled={isLoadingFollow}
                   variant={!state.isFollowing ? 'primary' : 'edit'}
                   size="small"
                   onClick={toggleFollow}>
@@ -142,11 +152,23 @@ const Profile = () => {
           <span>Сохраненное</span>
         </div>
       </div>
-      <div className="mini-posts-grid">
-        {state.posts.data &&
-          state.posts.data.map((post) => (
-            <PostMini key={post._id} post={post} />
-          ))}
+      <div className="profile__posts">
+        {state.posts.data.length ? (
+          <div className="mini-posts-grid">
+            {state.posts.data.map((post) => (
+              <PostMini key={post._id} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="profile__posts__empty">
+            <div className="profile__posts__empty__item">
+              <span>
+                <Icon name="camera" size="28" />
+              </span>
+            </div>
+            <h1>Публикаций пока нет</h1>
+          </div>
+        )}
       </div>
     </div>
   );
