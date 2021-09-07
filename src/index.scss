@@ -218,3 +218,16 @@ a {
     padding: 0px 3px;
   }
 }
+
+@keyframes IGCoreSpinnerSpin12 {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.item-loader {
+  animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}
