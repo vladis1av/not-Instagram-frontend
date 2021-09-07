@@ -1,12 +1,18 @@
 .btn {
+  overflow: hidden;
+  position: relative;
   cursor: pointer;
   font-size: 14px;
   line-height: 18px;
   padding: 12px 18px;
-}
-
-.btn[disabled] {
-  opacity: 0.3;
+  .item-loader {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .btn--small {
@@ -28,6 +34,9 @@
   color: #fff;
   position: relative;
   font-weight: 600;
+  &:disabled {
+    background-color: rgba(0, 149, 246, 0.3);
+  }
 }
 
 .btn--primary-outline {
@@ -37,6 +46,9 @@
   padding: 0;
   font-weight: 600;
   background-color: transparent;
+  &:disabled {
+    color: rgba(#0095f6, 0.3);
+  }
 }
 
 .btn--edit {
@@ -47,4 +59,7 @@
   margin-right: 10px;
   max-width: 181px;
   background-color: transparent;
+  &:disabled {
+    color: rgba(#686868, 0.3);
+  }
 }

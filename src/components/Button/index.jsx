@@ -1,10 +1,20 @@
 import cls from 'classnames';
 import { Link } from 'react-router-dom';
 
+import { ItemsLoader } from '../';
 import './Button.scss';
 
 const Button = (props) => {
-  const { onClick, className, children, variant, size, to, ...rest } = props;
+  const {
+    onClick,
+    isLoading,
+    className,
+    children,
+    variant,
+    size,
+    to,
+    ...rest
+  } = props;
   const Tag = to ? Link : 'button';
 
   const buttonStyles = cls(
@@ -21,6 +31,7 @@ const Button = (props) => {
 
   return (
     <Tag onClick={onClick} className={buttonStyles} to={to} {...rest}>
+      {isLoading && <ItemsLoader size="20px" />}
       {children}
     </Tag>
   );

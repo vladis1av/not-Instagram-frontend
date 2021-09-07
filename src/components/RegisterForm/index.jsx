@@ -1,24 +1,30 @@
 import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import { authApi } from '../../services/api';
 import { Button, Icon } from '../';
-import logo from '../../assets/images/instagram-logo.svg';
 import { useChangeDocumentTitle } from '../../hooks';
+import logo from '../../assets/images/instagram-logo.svg';
 
 const RegisterForm = () => {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickSubmit = async (data) => {
     try {
+      setIsLoading(true);
       const res = await authApi.registration(data);
 
       if (res.status === 200) {
+        setIsLoading(false);
         history.push('/signin');
       }
+
       return res;
     } catch (error) {
+      setIsLoading(false);
       console.error(error.response?.data?.message);
     }
   };
@@ -153,10 +159,11 @@ const RegisterForm = () => {
               </div>
 
               <Button
+                isLoading={isLoading}
                 size="small"
                 variant="primary"
                 type="submit"
-                disabled={!(formik.dirty && formik.isValid)} //|| loadingStatus === 'LOADING'
+                disabled={!(formik.dirty && formik.isValid) || isLoading}
                 className="p10">
                 Зарегистрироваться
               </Button>

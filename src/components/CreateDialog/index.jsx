@@ -12,6 +12,8 @@ const CreateDialog = ({ hide }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
+  const [dialogIsFetching, setDialogIsFetching] = useState(false);
+
   const onSelectUser = (user) => {
     setSelectedUsers([...selectedUsers, user]);
     setSearchTerm('');
@@ -25,8 +27,13 @@ const CreateDialog = ({ hide }) => {
   };
 
   const createDialogs = () => {
-    selectedUsers.forEach(({ userId }) => {
-      dialogsApi.create({ partner: userId });
+    setDialogIsFetching(true);
+    Promise.all(
+      selectedUsers.map(({ userId }) => {
+        return dialogsApi.create({ partner: userId });
+      }),
+    ).then(() => {
+      setDialogIsFetching(false);
       setSelectedUsers([]);
       hide();
     });
@@ -64,9 +71,9 @@ const CreateDialog = ({ hide }) => {
           <div>
             <h1>Новое сообщение</h1>
           </div>
-
           <div>
             <Button
+              isLoading={dialogIsFetching}
               onClick={createDialogs}
               disabled={!selectedUsers.length}
               variant="primary--outline"
