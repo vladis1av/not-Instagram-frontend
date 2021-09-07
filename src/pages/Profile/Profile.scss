@@ -219,4 +219,39 @@
       }
     }
   }
+  &__posts {
+    &__empty {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      &__item {
+        width: 62px;
+        height: 62px;
+        border-width: 2px;
+        border-color: #262626;
+        align-items: center;
+        background: 0 0;
+        border-radius: 50%;
+        border-style: solid;
+        box-sizing: border-box;
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+      }
+      h1 {
+        color: #262626;
+        display: block;
+        font-weight: 300;
+        font-size: 28px;
+        line-height: 32px;
+        margin: -5px 0 -6px;
+        margin: 32px 0 48px 0px;
+      }
+    }
+  }
 }
