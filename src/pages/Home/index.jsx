@@ -73,7 +73,7 @@ const Home = () => {
                   postId={item._id}
                 />
               ))}
-            {fetching && <ItemsLoader size="60px" />}
+            {fetching && <ItemsLoader size="35px" />}
           </div>
           <div className="aside">
             <Suggestions

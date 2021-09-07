@@ -20,7 +20,7 @@ const Explore = () => {
       <div className="mini-posts-grid">
         {posts && posts.map((post) => <PostMini key={post._id} post={post} />)}
       </div>
-      {isLoading && <ItemsLoader size="80" />}
+      {true && <ItemsLoader size="40" />}
     </div>
   );
 };
