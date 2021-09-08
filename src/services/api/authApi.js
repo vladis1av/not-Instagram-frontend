@@ -22,7 +22,7 @@ const authApi = {
   },
 
   async verify(hash) {
-    const { data } = await $api.get('/activate/' + hash);
+    const { data } = await $api.get(`/activate?hash=${hash}`);
     return data;
   },
 };

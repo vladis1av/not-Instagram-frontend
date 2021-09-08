@@ -55,8 +55,8 @@ function App() {
       {renderModals()}
       <Switch>
         <Route path={['/auth', '/signin', '/signup']} component={Auth} />
+        <Route path="/activate/:hash" component={Activate} />
         <Layout>
-          <Route path="/user/activate/:hash" component={Activate} />
           <Route path="/user/:id" component={Profile} />
           <PrivateRoute path="/explore" component={Explore} isAuth={isAuth} />
           <PrivateRoute
