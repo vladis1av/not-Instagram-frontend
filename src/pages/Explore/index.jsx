@@ -9,10 +9,16 @@ const Explore = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    postsApi.fetchPosts().then((res) => {
-      setIsLoading(false);
-      setPosts(res.data.data);
-    });
+    postsApi
+      .fetchPosts()
+      .then((res) => {
+        setPosts(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Произошла ошибка при загрузке постов');
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -20,7 +26,11 @@ const Explore = () => {
       <div className="mini-posts-grid">
         {posts && posts.map((post) => <PostMini key={post._id} post={post} />)}
       </div>
-      {true && <ItemsLoader size="40" />}
+      {isLoading && (
+        <div className="explore__load-more">
+          <ItemsLoader size="40" />
+        </div>
+      )}
     </div>
   );
 };
