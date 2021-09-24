@@ -1,7 +1,7 @@
 import SuggestionUsersItem from '../SuggestionUsersItem';
 import { SuggestionsLoader } from '../..';
 
-const SuggestionUsersItemWrapper = ({ users, currentUserId }) => {
+const SuggestionUsersItemWrapper = ({ users }) => {
   return (
     <div className="suggestions__users">
       <div className="suggestions__users__header">
@@ -18,7 +18,6 @@ const SuggestionUsersItemWrapper = ({ users, currentUserId }) => {
             profileAvatar={user.profileAvatar}
             fullname={user.fullname}
             userId={user._id}
-            currentUserId={currentUserId}
           />
         ))
       )}

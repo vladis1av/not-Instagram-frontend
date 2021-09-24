@@ -4,13 +4,7 @@ import { Image } from '../';
 import SuggestionUsersItemWrapper from './SuggestionUsersItemWrapper';
 import './Suggestions.scss';
 
-const Suggestions = ({
-  userAvatar,
-  username,
-  fullname,
-  users,
-  currentUserId,
-}) => {
+const Suggestions = ({ userAvatar, username, fullname, users }) => {
   return (
     <div className="suggestions">
       <div className="user-switch">
@@ -32,7 +26,7 @@ const Suggestions = ({
           <span>{fullname}</span>
         </div>
       </div>
-      <SuggestionUsersItemWrapper users={users} currentUserId={currentUserId} />
+      <SuggestionUsersItemWrapper users={users} />
     </div>
   );
 };

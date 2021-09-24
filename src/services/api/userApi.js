@@ -6,10 +6,8 @@ const userApi = {
     return data;
   },
 
-  async toggleFollow(userId, currentUserId) {
-    const { data } = await $api.put(`/users/${userId}/toggleFollow`, {
-      userId: currentUserId,
-    });
+  async toggleFollow(userId) {
+    const { data } = await $api.put(`/users/${userId}/toggleFollow`);
     return data;
   },
 
@@ -25,8 +23,8 @@ const userApi = {
     return res;
   },
 
-  async getSuggestedUsers(max) {
-    const response = await $api.get(`/users/suggested/${max || ''}`);
+  async getSuggestedUsers(max = 10) {
+    const response = await $api.get(`/users/suggested/${max}`);
     return response.data;
   },
 };
