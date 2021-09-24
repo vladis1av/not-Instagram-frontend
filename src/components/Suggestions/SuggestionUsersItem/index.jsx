@@ -5,20 +5,18 @@ import { userApi } from '../../../services/api';
 import { Image, Button } from '../../';
 import './SuggestionUsersItem.scss';
 
-const SuggestionUsersItem = ({
-  username,
-  profileAvatar,
-  fullname,
-  userId,
-  currentUserId,
-}) => {
+const SuggestionUsersItem = ({ username, profileAvatar, fullname, userId }) => {
   const [isFollow, setIsFollow] = useState(false);
 
   const followHandler = () => {
     userApi
-      .toggleFollow(userId, currentUserId)
+      .toggleFollow(userId)
       .then(() => setIsFollow(!isFollow))
-      .catch(() => setIsFollow(false));
+      .catch((error) => {
+        setIsFollow(false);
+        alert(`Произошла ошибка при ${isFollow ? 'Отписке' : 'Подписке'}`);
+        console.log(error);
+      });
   };
 
   return (

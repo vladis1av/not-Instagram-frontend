@@ -27,10 +27,13 @@ const Profile = () => {
       setIsLoadingFollow(true);
       const res = await userApi.toggleFollow(state.user._id, currentUser._id);
       dispatch(setFollow(res.operation));
-      setIsLoadingFollow(false);
     } catch (error) {
-      setIsLoadingFollow(false);
       console.log(error);
+      alert(
+        `Произошла ошибка при ${state.isFollowing ? 'Подписке' : 'Отписке'}`,
+      );
+    } finally {
+      setIsLoadingFollow(false);
     }
   };
 
@@ -45,8 +48,9 @@ const Profile = () => {
         dispatch(setLoaded(false));
         const userProfile = await userApi.fetchUser(id);
         dispatch(setProfile(userProfile));
-      } catch (err) {
+      } catch (error) {
         dispatch(setLoaded(false));
+        console.log(error);
       }
     })();
   }, [id]);
