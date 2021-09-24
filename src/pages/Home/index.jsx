@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { postsApi, userApi } from '../../services/api/';
@@ -11,18 +11,27 @@ import './Home.scss';
 const Home = () => {
   const currentUser = useSelector((state) => selectCurrentUser(state));
   const [posts, setPosts] = useState([]);
-  const [fetching, setFetching] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
-  const [page, setPage] = useState(0);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
-  const [suggestedUsersLoading, setSuggestedUsersLoading] = useState([true]);
+  const [fetching, setFetching] = useState(true);
+  const [feedIsEnd, setFeedIsEnd] = useState(false);
+  const [countToSkipPosts, secCountToSkipPosts] = useState(0);
+
+  const fetchSuggestedUsers = () => {
+    try {
+      userApi.getSuggestedUsers().then((res) => {
+        setSuggestedUsers(res);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
         100 &&
-      posts.length <= totalCount
+      !feedIsEnd
     ) {
       setFetching(true);
     }
@@ -38,22 +47,23 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (fetching) {
+    if (fetching && !feedIsEnd) {
       postsApi
-        .fetchFeed(page)
+        .fetchFeed(countToSkipPosts)
         .then((res) => {
+          if (!res.data.length) {
+            setFeedIsEnd(true);
+          }
           setPosts([...posts, ...res.data]);
-          setPage((prevState) => prevState + posts.length);
+          secCountToSkipPosts((prevState) => prevState + res.data.length);
         })
+        .catch((error) => console.log(error))
         .finally(() => setFetching(false));
     }
   }, [fetching]);
 
   useEffect(() => {
-    userApi.getSuggestedUsers().then((res) => {
-      setSuggestedUsersLoading(false);
-      setSuggestedUsers(res);
-    });
+    fetchSuggestedUsers();
   }, []);
 
   return (
@@ -61,30 +71,33 @@ const Home = () => {
       {!posts.length && !fetching ? (
         <SuggestionUsersItemWrapper users={suggestedUsers} />
       ) : (
-        <>
+        <React.Fragment>
           <div className="posts">
             {!posts.length && <PostsLoader className="post" />}
-            {posts.length &&
-              posts.map((item) => (
-                <Post
-                  key={item._id}
-                  item={item}
-                  currentUser={currentUser.id}
-                  postId={item._id}
-                />
-              ))}
-            {fetching && <ItemsLoader size="35px" />}
+            {posts.length
+              ? posts.map((item) => (
+                  <Post
+                    key={item._id}
+                    item={item}
+                    currentUserId={currentUser.id}
+                    postId={item._id}
+                  />
+                ))
+              : null}
+            {posts.length > 0 && fetching && !feedIsEnd && (
+              <ItemsLoader size="35px" />
+            )}
+            {feedIsEnd && <div>Лента закончилась</div>}
           </div>
           <div className="aside">
             <Suggestions
               userAvatar={currentUser.profileAvatar}
               username={currentUser.username}
               fullname={currentUser.fullname}
-              currentUserId={currentUser._id}
               users={suggestedUsers}
             />
           </div>
-        </>
+        </React.Fragment>
       )}
     </section>
   );
