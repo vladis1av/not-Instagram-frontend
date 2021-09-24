@@ -11,7 +11,7 @@ import { postsApi } from '../../services/api';
 import { formatDate } from '../../utils/';
 import './Post.scss';
 
-const Post = ({ currentUser, postId, item }) => {
+const Post = ({ currentUserId, postId, item }) => {
   const [state, dispatch] = useReducer(postReducer, initialState);
 
   const toggleLike = async () => {
@@ -34,7 +34,7 @@ const Post = ({ currentUser, postId, item }) => {
   };
 
   useEffect(() => {
-    dispatch(setPost({ item, currentUser }));
+    dispatch(setPost({ item, currentUserId }));
   }, []);
 
   if (!state.isLoaded) {
