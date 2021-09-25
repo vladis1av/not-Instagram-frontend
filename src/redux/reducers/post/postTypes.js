@@ -3,4 +3,5 @@ export const postTypes = {
   SET_LOADED: 'SET_LOADED',
   SET_POST: 'SET_POST',
   ADD_COMMENT: 'ADD_COMMENT',
+  SET_MESSAGE_VALUE: 'SET_MESSAGE_VALUE',
 };
