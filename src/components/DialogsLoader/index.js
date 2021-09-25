@@ -2,7 +2,7 @@ import ContentLoader from 'react-content-loader';
 
 const DialogsLoader = (props) => {
   return (
-    <ContentLoader height={300} {...props}>
+    <ContentLoader animate={false} height={300} {...props}>
       <circle cx="50" cy="40" r="30" />
       <rect x="95" y="20" rx="4" ry="4" width="170" height="15" />
       <rect x="95" y="45" rx="4" ry="4" width="120" height="15" />
