@@ -7,7 +7,9 @@
   margin-bottom: 24px;
   max-width: 616px;
   width: 100%;
-
+  a:hover {
+    text-decoration: underline;
+  }
   @media (max-width: 640px) {
     border: none;
     margin-bottom: 15px;
@@ -32,10 +34,6 @@
         font-size: 14px;
         font-weight: 600;
         color: #262626;
-      }
-
-      a:hover {
-        text-decoration: underline;
       }
     }
 
