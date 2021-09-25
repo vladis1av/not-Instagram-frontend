@@ -64,8 +64,8 @@ const Home = () => {
                   <Post
                     key={item._id}
                     item={item}
-                    currentUserId={currentUser.id}
                     postId={item._id}
+                    currentUserId={currentUser._id}
                   />
                 ))
               : null}
