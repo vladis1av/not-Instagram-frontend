@@ -15,14 +15,13 @@ const Home = () => {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [feedIsEnd, setFeedIsEnd] = useState(false);
-  const [countToSkipPosts, secCountToSkipPosts] = useState(0);
+  const [countToSkipPosts, setCountToSkipPosts] = useState(0);
   const lastElemRef = useRef(null);
 
-  const fetchSuggestedUsers = () => {
+  const fetchSuggestedUsers = async () => {
     try {
-      userApi.getSuggestedUsers().then((res) => {
-        setSuggestedUsers(res);
-      });
+      const res = await userApi.getSuggestedUsers();
+      setSuggestedUsers(res);
     } catch (error) {
       console.log(error);
     }
@@ -35,12 +34,12 @@ const Home = () => {
     if (fetching && !feedIsEnd) {
       postsApi
         .fetchFeed(countToSkipPosts)
-        .then((res) => {
-          if (!res.data.length) {
+        .then(({ data }) => {
+          if (!data.length) {
             setFeedIsEnd(true);
           }
-          setPosts([...posts, ...res.data]);
-          secCountToSkipPosts((prevState) => prevState + res.data.length);
+          setPosts([...posts, ...data]);
+          setCountToSkipPosts((prevState) => prevState + data.length);
         })
         .catch((error) => console.log(error))
         .finally(() => setFetching(false));
@@ -58,17 +57,18 @@ const Home = () => {
       ) : (
         <React.Fragment>
           <div className="posts">
-            {!posts.length && <PostsLoader className="post" />}
-            {posts.length
-              ? posts.map((item) => (
-                  <Post
-                    key={item._id}
-                    item={item}
-                    postId={item._id}
-                    currentUserId={currentUser._id}
-                  />
-                ))
-              : null}
+            {!posts.length ? (
+              <PostsLoader className="post" />
+            ) : (
+              posts.map((item) => (
+                <Post
+                  key={item._id}
+                  item={item}
+                  postId={item._id}
+                  currentUserId={currentUser._id}
+                />
+              ))
+            )}
             {posts.length > 0 && fetching && !feedIsEnd && (
               <ItemsLoader size="35px" />
             )}
