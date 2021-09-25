@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { postsApi, userApi } from '../../services/api/';
 import { PostsLoader, Post, ItemsLoader, Suggestions } from '../../components';
 import { useChangeDocumentTitle } from '../../hooks';
 import { selectCurrentUser } from '../../redux/reducers/user/userSelectors';
+import { useObserver } from '../../hooks/useObserver';
 import SuggestionUsersItemWrapper from '../../components/Suggestions/SuggestionUsersItemWrapper';
 import './Home.scss';
 
@@ -15,6 +16,7 @@ const Home = () => {
   const [fetching, setFetching] = useState(true);
   const [feedIsEnd, setFeedIsEnd] = useState(false);
   const [countToSkipPosts, secCountToSkipPosts] = useState(0);
+  const lastElemRef = useRef(null);
 
   const fetchSuggestedUsers = () => {
     try {
@@ -26,25 +28,8 @@ const Home = () => {
     }
   };
 
-  const scrollHandler = (e) => {
-    if (
-      e.target.documentElement.scrollHeight -
-        (e.target.documentElement.scrollTop + window.innerHeight) <
-        100 &&
-      !feedIsEnd
-    ) {
-      setFetching(true);
-    }
-  };
-
+  useObserver(lastElemRef, !feedIsEnd, fetching, () => setFetching(true));
   useChangeDocumentTitle('not-Instagram');
-
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
-    return () => {
-      document.removeEventListener('scroll', scrollHandler);
-    };
-  }, []);
 
   useEffect(() => {
     if (fetching && !feedIsEnd) {
@@ -88,6 +73,7 @@ const Home = () => {
               <ItemsLoader size="35px" />
             )}
             {feedIsEnd && <div>Лента закончилась</div>}
+            <div ref={lastElemRef} style={{ padding: '10px' }}></div>
           </div>
           <div className="aside">
             <Suggestions
