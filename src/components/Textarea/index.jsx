@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { Icon, Button, EmojiPicker } from '../';
 import './Textarea.scss';
 
-const Textarea = ({ chat, post, onSend, api }) => {
+//разгрести этот щедевр
+const Textarea = ({ chat, post, value, setValue, sendMessage }) => {
   const textareaStyles = classNames(
     'textarea',
     { 'textarea--chat': chat },
@@ -12,21 +13,26 @@ const Textarea = ({ chat, post, onSend, api }) => {
   );
 
   const textAreaRef = useRef(null);
-  const [message, setMessage] = useState('');
   const [textAreaHeight, setTextAreaHeight] = useState('auto');
+  const valueIsNotEmpty = value.trim();
 
-  const HandleSendMessage = async (e) => {
-    if (message.trim() && e.keyCode === 13) {
-      await api(message);
-      textAreaRef.current.style.height = 34 + 'px';
-      setMessage('');
+  const sendMessageOnKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      sendMessage();
     }
   };
 
   const onChangeHandler = (e) => {
     setTextAreaHeight('auto');
-    setMessage(e.target.value);
+    setValue(e.target.value);
   };
+
+  useEffect(() => {
+    if (!valueIsNotEmpty) {
+      textAreaRef.current.style.height = 34 + 'px';
+    }
+  }, [valueIsNotEmpty]);
 
   const moveFocusCaretAtEnd = (e) => {
     const tempValue = e.target.value;
@@ -37,17 +43,17 @@ const Textarea = ({ chat, post, onSend, api }) => {
   useEffect(() => {
     setTextAreaHeight(`${textAreaRef.current.scrollHeight}px`);
     if (chat && textAreaRef.current) textAreaRef.current.focus();
-  }, [message, textAreaHeight, textAreaRef]);
+  }, [value, textAreaHeight, textAreaRef]);
 
   return (
     <div className={textareaStyles}>
       <div className="textarea__content">
-        <EmojiPicker message={message} messageHandler={setMessage} />
+        <EmojiPicker message={value} messageHandler={setValue} />
         <textarea
           rows={1}
-          value={message}
+          value={value}
           ref={textAreaRef}
-          onKeyDown={(e) => HandleSendMessage(e)}
+          onKeyDown={(e) => sendMessageOnKeyPress(e)}
           onFocus={(e) => moveFocusCaretAtEnd(e)}
           onChange={(e) => onChangeHandler(e)}
           style={{
@@ -57,7 +63,7 @@ const Textarea = ({ chat, post, onSend, api }) => {
             !post ? 'Напишите сообщение...' : 'Добавьте комментарий...'
           }
         />
-        {message.trim() === '' && !post ? (
+        {!valueIsNotEmpty && !post ? (
           <div className="textarea__content__add-atachments">
             <Icon
               name="photo"
@@ -73,8 +79,8 @@ const Textarea = ({ chat, post, onSend, api }) => {
         ) : (
           <Button
             variant="primary--outline"
-            disabled={!message.trim()}
-            onClick={onSend}>
+            disabled={!valueIsNotEmpty}
+            onClick={sendMessage}>
             {!post ? 'Отправить' : 'Опубликовать'}
           </Button>
         )}
