@@ -1,6 +1,7 @@
 import { postTypes } from './postTypes';
 
 export const initialState = {
+  messageValue: '',
   isLoaded: false,
   isLiked: null,
   data: {
@@ -15,6 +16,11 @@ export const initialState = {
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
+    case postTypes.SET_MESSAGE_VALUE:
+      return {
+        ...state,
+        messageValue: action.payload,
+      };
     case postTypes.SET_LOADED:
       return {
         ...state,
@@ -25,9 +31,10 @@ const postReducer = (state = initialState, action) => {
       const data = action.payload.item;
       const { comments = [], commentCount = 0 } = data.commentData || {};
 
-      const isLiked = !!data.postLikes.find(
-        (like) => like.author === action.payload.currentUser,
-      );
+      const isLiked = !!data.postLikes.find((like) => {
+        return like.author === action.payload.currentUserId;
+      });
+
       return {
         ...state,
         isLoaded: true,
