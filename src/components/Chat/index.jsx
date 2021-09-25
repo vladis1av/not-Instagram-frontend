@@ -5,15 +5,35 @@ import { useChangeDocumentTitle } from '../../hooks';
 import messageApi from '../../services/api/messageApi';
 import socket from '../../core/socket';
 import './Chat.scss';
+import ItemsLoader from '../ItemsLoader';
 
 const Chat = ({ currentUser, currentDialog }) => {
   const ref = useRef();
   const [currentMessage, setCurrentMessage] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [messageValue, setMessageValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendMessageHandler = () => {
+    messageApi
+      .send(messageValue, currentDialog)
+      .then(() => {
+        setMessageValue('');
+      })
+      .catch((error) => console.log(error));
+  };
 
   const fetchMessages = async (id) => {
-    const { data } = await messageApi.getAllByDialogId(id);
-    setMessages(data);
+    try {
+      setIsLoading(true);
+      const { data } = await messageApi.getAllByDialogId(id);
+      setMessages(data);
+    } catch (error) {
+      console.error(error);
+      alert('Произошла ошибка при загрузке сообщений');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const setCurrentMessageId = (id) => setCurrentMessage(id);
@@ -32,25 +52,14 @@ const Chat = ({ currentUser, currentDialog }) => {
     }
   };
 
-  const onAddMessage = async (message) => {
-    try {
-      const data = await messageApi.send(message, currentDialog);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useChangeDocumentTitle('not-Instagram • Direct');
 
   useEffect(() => {
     if (currentDialog) {
       fetchMessages(currentDialog);
     }
-
     socket.on('SERVER:NEW_MESSAGE', fetchNewMessages);
     socket.on('SERVER:REMOVED_MESSAGE', removeMessage);
-
     return () => {
       socket.removeListener('SERVER:NEW_MESSAGE', fetchNewMessages);
       socket.removeListener('SERVER:REMOVED_MESSAGE', removeMessage);
@@ -65,20 +74,29 @@ const Chat = ({ currentUser, currentDialog }) => {
     <div className="chat">
       <ChatStatus />
       <div className="chat__messages" ref={ref}>
-        <div>
-          {messages.map((message) => {
-            return (
-              <ChatMessageItem
-                key={message._id}
-                message={message}
-                isMe={message.user._id === currentUser._id}
-                setCurrentMessage={setCurrentMessageId}
-              />
-            );
-          })}
-        </div>
+        {!isLoading ? (
+          <div>
+            {messages.map((message) => {
+              return (
+                <ChatMessageItem
+                  key={message._id}
+                  message={message}
+                  isMe={message.user._id === currentUser._id}
+                  setCurrentMessage={setCurrentMessageId}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          isLoading && <ItemsLoader size="30px" center />
+        )}
       </div>
-      <Textarea chat api={onAddMessage} />
+      <Textarea
+        chat
+        value={messageValue}
+        setValue={setMessageValue}
+        sendMessage={sendMessageHandler}
+      />
     </div>
   );
 };

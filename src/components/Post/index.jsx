@@ -23,14 +23,18 @@ const Post = ({ currentUserId, postId, item }) => {
     }
   };
 
-  const onAddComment = async (message) => {
-    try {
-      const res = await postsApi.createComment(postId, message);
-      dispatch({ type: postTypes.ADD_COMMENT, payload: res.data });
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
+  const onAddComment = () => {
+    postsApi
+      .createComment(postId, state.messageValue)
+      .then((res) => {
+        dispatch({ type: postTypes.ADD_COMMENT, payload: res.data });
+        dispatch({ type: postTypes.SET_MESSAGE_VALUE, payload: '' });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const onChangeMessageHandler = (value) => {
+    dispatch({ type: postTypes.SET_MESSAGE_VALUE, payload: value });
   };
 
   useEffect(() => {
@@ -100,7 +104,10 @@ const Post = ({ currentUserId, postId, item }) => {
         )}
         {state.data.text && (
           <div className="post__content__description">
-            <span>{state.data.author.username}</span>&nbsp;
+            <Link to={`/user/${item.author.username}`}>
+              <span>{item.author.username}</span>
+            </Link>
+            &nbsp;
             <span>{state.data.text}</span>
           </div>
         )}
@@ -112,7 +119,10 @@ const Post = ({ currentUserId, postId, item }) => {
             {state.data.comments.length
               ? state.data.comments.map((item) => (
                   <div key={item._id} className="post__content__comments__item">
-                    <span>{item.author.username}</span>&nbsp;
+                    <Link to={`/user/${item.author.username}`}>
+                      <span>{item.author.username}</span>
+                    </Link>
+                    &nbsp;
                     <span>{item.message}</span>
                   </div>
                 ))
@@ -124,7 +134,12 @@ const Post = ({ currentUserId, postId, item }) => {
           <span>{formatDate(new Date(state.data.createdAt))}</span>
         </div>
         <div className="post-comment-Input ">
-          <Textarea post api={onAddComment} />
+          <Textarea
+            post
+            value={state.messageValue}
+            setValue={onChangeMessageHandler}
+            sendMessage={onAddComment}
+          />
         </div>
       </div>
     </article>
